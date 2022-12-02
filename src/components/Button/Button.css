@@ -1,0 +1,14 @@
+.create {
+    width: 180px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 20pt;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.create:hover {
+    background-color: #242424;
+    color: #ffff;
+}

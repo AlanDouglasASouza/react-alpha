@@ -1,0 +1,12 @@
+.form-user {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+input {
+    width: 300px;
+    height: 40px;
+    font-size: 13pt;
+    padding-left: 10px;
+}
