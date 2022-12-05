@@ -5,72 +5,74 @@ import Form from "../Form/Forms";
 import Modal from "../Modal/Modal";
 import "./Login.css";
 
-export default function Login() {
-  const [getModal, setCloseModal] = useState(false);
-  const [valueEmail, setEmail] = useState("");
-  const [valueName, setName] = useState("");
-  const [valuePassword, setPassword] = useState("");
-  const [response, setResponse] = useState("");
+export default function Login(): JSX.Element {
+    const [getModal, setCloseModal] = useState(false);
 
-  if (getModal) return <Modal click={closeModal} />;
+    if (getModal) return <Modal click={closeModal} />;
 
-  async function openModal(e: any) {
-    e.preventDefault();
-    const validate = new Validator();
+    async function openModal(e: any) {}
 
-    try {
-      if (
-        !validate.email(valueEmail) ||
-        !validate.name(valueName) ||
-        !validate.password(valuePassword)
-      ) {
-        return alert("Preencha corretamente todos os campos");
-      }
-
-      const res = await fetch("https://api.adviceslip.com/advice");
-      if (!res.ok) return console.error("Error na requisição");
-      const data = await res.json();
-
-      setResponse(data);
-      setCloseModal(true);
-      console.log(response);
-    } catch (err) {
-      console.error(err);
+    function closeModal() {
+        setCloseModal(false);
     }
-  }
 
-  function closeModal() {
-    setCloseModal(false);
-  }
+    async function submitForm(e: any) {
+        e.preventDefault();
+        const inputs = e.target;
+        const validate = new Validator();
 
-  return (
-    <div className="container-login">
-      <h1 className="title-login">LOGIN</h1>
-      <Form>
-        <input
-          onChange={(e) => setEmail(e.target.value)}
-          value={valueEmail}
-          className="ipt"
-          type="email"
-          placeholder="Email"
-        />
-        <input
-          className="ipt"
-          type="text"
-          placeholder="Nome"
-          onChange={(e) => setName(e.target.value)}
-          value={valueName}
-        />
-        <input
-          className="ipt"
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={valuePassword}
-          placeholder="Senha"
-        />
+        try {
+            if (
+                !validate.email(inputs.email.value) ||
+                !validate.name(inputs.name.value) ||
+                !validate.password(inputs.password.value)
+            ) {
+                return alert("Preencha corretamente todos os campos");
+            }
 
-        <Button click={openModal}>Cadastrar</Button>
-      </Form>
-    </div>
-  );
+            const options = {
+                method: "POST",
+                body: "{'email': 'alan@gmail.com', 'password' : '123'}",
+            };
+
+            const res = await fetch("http://localhost:8000/login", options);
+            if (!res.ok) return console.error("Error na requisição");
+            const data = await res.json();
+            console.log(data);
+
+            setCloseModal(true);
+        } catch (err) {
+            console.error(err);
+        }
+        //const formData = new FormData(e);
+    }
+
+    return (
+        <div className="container-login">
+            <h1 className="title-login">LOGIN</h1>
+            <Form submit={(e: any) => submitForm(e)}>
+                <input
+                    className="ipt"
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                />
+                <input
+                    className="ipt"
+                    type="text"
+                    placeholder="Nome"
+                    name="name"
+                />
+                <input
+                    className="ipt"
+                    type="password"
+                    name="password"
+                    placeholder="Senha"
+                />
+                <Button click={openModal} type="submit">
+                    Cadastrar
+                </Button>
+            </Form>
+        </div>
+    );
 }
