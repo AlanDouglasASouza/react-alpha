@@ -6,7 +6,7 @@ export default class Validator {
     constructor() {
         this.emailRegex =
             /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-        this.nameRegex = /^[a-z]{1,}$/gim;
+        this.nameRegex = /^([a-z]{1,})([ ]{1}[a-z]{1,}){0,}$/gim;
         this.passwordRegex = /^\w{1,}$/gim;
     }
 
