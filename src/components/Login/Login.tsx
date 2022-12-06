@@ -10,33 +10,46 @@ export default function Login(): JSX.Element {
 
     if (getModal) return <Modal click={closeModal} />;
 
-    async function openModal(e: any) {}
-
-    function closeModal() {
+    function closeModal(): boolean {
         setCloseModal(false);
+        return true;
     }
 
-    async function submitForm(e: any) {
+    async function submitForm(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        const inputs = e.target;
+        const inputs = e.target as HTMLFormElement;
         const validate = new Validator();
+        const formData = new FormData(inputs);
+        const reqBody = Object.fromEntries(formData.entries());
 
         try {
-            if (
-                !validate.email(inputs.email.value) ||
-                !validate.name(inputs.name.value) ||
-                !validate.password(inputs.password.value)
-            ) {
-                return alert("Preencha corretamente todos os campos");
+            if (!validate.email(reqBody.email as string)) {
+                return alert(
+                    "Preencha o campo E-mail válido! Exemplo: 'meu.nome@email.com'"
+                );
+            }
+
+            if (!validate.name(reqBody.name as string)) {
+                return alert(
+                    "Preencha o campo Nome com seu nome completo, exemplo: 'José Augusto'"
+                );
+            }
+
+            if (!validate.password(reqBody.password as string)) {
+                return alert("A sua senha não pode conter aspas");
             }
 
             const options = {
                 method: "POST",
-                body: "{'email': 'alan@gmail.com', 'password' : '123'}",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(reqBody),
             };
 
-            const res = await fetch("http://localhost:8000/login", options);
-            if (!res.ok) return console.error("Error na requisição");
+            const res = await fetch("http://localhost:8000/accounts", options);
+
+            if (!res.ok)
+                return console.error("Error na requisição", await res.json());
+
             const data = await res.json();
             console.log(data);
 
@@ -44,12 +57,11 @@ export default function Login(): JSX.Element {
         } catch (err) {
             console.error(err);
         }
-        //const formData = new FormData(e);
     }
 
     return (
         <div className="container-login">
-            <h1 className="title-login">LOGIN</h1>
+            <h1 className="title-login">CADASTRO</h1>
             <Form submit={(e: any) => submitForm(e)}>
                 <input
                     className="ipt"
@@ -60,8 +72,8 @@ export default function Login(): JSX.Element {
                 <input
                     className="ipt"
                     type="text"
-                    placeholder="Nome"
                     name="name"
+                    placeholder="Nome completo"
                 />
                 <input
                     className="ipt"
@@ -69,9 +81,7 @@ export default function Login(): JSX.Element {
                     name="password"
                     placeholder="Senha"
                 />
-                <Button click={openModal} type="submit">
-                    Cadastrar
-                </Button>
+                <Button type="submit">Cadastrar</Button>
             </Form>
         </div>
     );

@@ -1,13 +1,12 @@
-import React from "react";
-
 export default class Validator {
     private emailRegex: RegExp;
     private nameRegex: RegExp;
     private passwordRegex: RegExp;
 
     constructor() {
-        this.emailRegex = /^(\w{1,}@\w{1,}\.(\w{3})(\.\w{2}){0,1})$/gim;
-        this.nameRegex = /^([a-z]{1,})([ ]{1}[a-z]{1,}){0,}$/gim;
+        this.emailRegex =
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+        this.nameRegex = /^[a-z]{1,}$/gim;
         this.passwordRegex = /^\w{1,}$/gim;
     }
 
@@ -16,8 +15,8 @@ export default class Validator {
         return false;
     }
 
-    public email(name: string): boolean {
-        if (this.emailRegex.test(name)) return true;
+    public email(email: string): boolean {
+        if (this.emailRegex.test(email)) return true;
         return false;
     }
 
