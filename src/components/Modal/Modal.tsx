@@ -1,13 +1,14 @@
-import React from "react";
-import IProps from "../../interface/IProps";
-import "./Modal.css";
+import { ButtonClose, Container, ModalOp } from "./style";
 
-export default function Modal(props: IProps): JSX.Element {
-    return (
-        <div className="modal">
-            <p className="close" onClick={props.click}>
-                X
-            </p>
-        </div>
-    );
+export default function Modal(props: any): JSX.Element {
+  return props.opened ? (
+    <>
+      <Container onClick={props.click}></Container>
+      <ModalOp>
+        <ButtonClose onClick={props.click}>X</ButtonClose>
+      </ModalOp>
+    </>
+  ) : (
+    <></>
+  );
 }
