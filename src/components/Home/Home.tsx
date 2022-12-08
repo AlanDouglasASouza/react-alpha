@@ -4,7 +4,7 @@ import Modal from "../Modal/Modal";
 import Button from "@mui/material/Button";
 import { Home, Inputs, Title } from "./style";
 
-export default function Login(): JSX.Element {
+export default function HomeOp(): JSX.Element {
     const [getModal, setCloseModal] = useState(false);
     const [msgModal, setMsgModal] = useState("");
 
