@@ -8,6 +8,7 @@ export const Inputs = styled.input`
 `;
 
 export const Home = styled.div`
+  position: absolute;
   display: flex;
   width: 50%;
   height: 50%;
@@ -17,9 +18,14 @@ export const Home = styled.div`
   border: none;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.9);
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 `;
 
 export const Title = styled.h1`
   padding-bottom: 40px;
-  font-size: 25pt;
+  font-size: 27pt;
 `;

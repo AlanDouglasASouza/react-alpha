@@ -7,9 +7,8 @@ export const Inputs = styled.input`
   padding-left: 10px;
 `;
 
-export const Home = styled.div`
+export const UpdateS = styled.div`
   position: absolute;
-
   display: flex;
   width: 50%;
   height: 50%;
@@ -19,7 +18,6 @@ export const Home = styled.div`
   border: none;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.9);
-
   margin: auto;
   left: 0;
   right: 0;
@@ -28,6 +26,6 @@ export const Home = styled.div`
 `;
 
 export const Title = styled.h1`
-  padding-bottom: 80px;
+  padding-bottom: 60px;
   font-size: 27pt;
 `;
